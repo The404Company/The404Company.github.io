@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The 404 Company</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="T404C_logo.png">
+    <style>
+        :root {
+            --accent-green: #20C20E;
+            --dark-bg: #0a0a0a;
+            --header-footer-bg: #151515;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        /* Updated Header - make it thicker */
+        header {
+            background: var(--header-footer-bg) !important;
+            backdrop-filter: none;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 1.5rem 0; /* Added padding to make header thicker */
+        }
+
+        nav {
+            display: flex;
+            justify-content: flex-end;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent-green);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            opacity: 0;
+            transition: opacity 0.8s;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .hero .the, .hero .company {
+            opacity: 0;
+            transition: opacity 0.8s;
+        }
+
+        .four-oh-four {
+            color: var(--accent-green);
+            font-weight: 800;
+            margin: 0 1rem;
+        }
+
+        /* About Section */
+        .about {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text {
+            text-align: left;
+        }
+
+        .about-text h2 {
+            color: var(--accent-green);
+            margin-bottom: 1.5rem;
+        }
+
+        .about p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Projects Section */
+        .projects {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Enhanced Project Cards */
+        .project-card {
+            background: #151515;
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(32, 194, 14, 0.1);
+        }
+
+        .project-card h3 {
+            color: var(--accent-green);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .project-card p {
+            margin-bottom: 1rem;
+            color: #ffffff;
+        }
+
+        /* Team Section */
+        .team {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .team-member {
+            background: #151515;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .team-member img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            border: 2px solid var(--accent-green);
+        }
+
+        .team-member h4 {
+            color: var(--accent-green);
+            margin-bottom: 1rem;
+        }
+
+        /* Updated Team Member styling */
+        .team-member ul {
+            list-style: none;
+            text-align: left;
+        }
+
+        .team-member ul li {
+            padding-left: 0;  /* Remove padding that was for the arrow */
+            margin-bottom: 0.5rem;
+        }
+
+        .team-member ul li::before {
+            display: none;  /* Remove the arrow */
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 2rem;
+            background: #151515;
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: #ffffff;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-green);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+		
+		        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .project-links a {
+            color: var(--accent-green);
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+        }
+
+        .project-links a:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Livelier Team Section */
+        .team-member {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(32, 194, 14, 0.1);
+        }
+
+        .team-member img {
+            transition: transform 0.3s;
+        }
+
+        .team-member:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Enhanced Footer */
+        footer {
+            padding: 4rem 2rem;
+            background: var(--header-footer-bg);
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: left;
+        }
+
+        .footer-section h4 {
+            color: var(--accent-green);
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p {
+            margin-bottom: 1.5rem; /* Add spacing before social icons */
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-green);
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#projects">Projects</a>
+            <a href="#team">Team</a>
+            <a href="mailto:schrotti12345@proton.me?subject=Hello%20The%20404%20Company&body=I%20just%20wanted%20to%20ask...">Contact</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>
+            <span class="the">The</span> 
+            <span class="four-oh-four">404</span> 
+            <span class="company">Company</span>
+        </h1>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-content">
+            <div class="about-text">
+                <h2>About The 404 Company</h2>
+                <p>We are a forward-thinking tech collective dedicated to solving tomorrow’s challenges through open, community-driven development. Born from the belief that progress thrives in transparency, we unite developers, designers, and visionaries to create adaptable tools that redefine possibility.</p>
+                <p>Our work is rooted in collaboration. Every project begins as a shared idea, refined by global contributors who value quality over speed and creativity over convention. We embrace the "404" ethos—turning unknowns into opportunities through relentless curiosity.</p>
+                <p>Join us in building software that empowers, evolves, and belongs to everyone.</p>
+            </div>
+            <div class="about-stats">
+                <div class="project-card">
+                    <h3>Our Impact</h3>
+                    <ul style="list-style: none; text-align: left;">
+                        <li>🚀 2+ Open Source Projects</li>
+                        <li>💻 24/7 Development Cycle</li>
+                        <li>🔒 34% Security Focused</li>
+                        <li>🌍 Global Community</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section class="projects" id="projects">
+        <h2>Our Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <h3>SigmaOS</h3>
+                <p>A almost usefull fake operating system written in python</p>
+                <div class="project-links">
+                    <a href="https://github.com/The404Company/SigmaOS" target="_blank" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="SigmaOS.html" target="_blank" title="Demo">
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                    <a href="SigmaOS-doc.html" target="_blank" title="Documentation">
+                        <i class="fas fa-book"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="project-card">
+                <h3>SigmaOS packages</h3>
+                <p>Official packages for SigmaOS</p>
+                <div class="project-links">
+                    <a href="https://github.com/The404Company/SigmaOS-packages" target="_blank" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="SigmaOS-packages.html" target="_blank" title="Demo">
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team -->
+    <section class="team" id="team">
+        <h2>Our Team</h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <img src="https://cdn.discordapp.com/avatars/1160308915028893696/5a49c6baea17bbdf6852e5aa7721dae3.png?size=1024" alt="Alex Jordan">
+                <h4>Lominub44</h4>
+                <ul>
+                    <li>Thinks Stack Overflow is basically a second brain.</li>
+                    <li>Has 3+ millennia of highly questionable experience.</li>
+                    <li>Once debugged a bug by arguing with it (and won).</li>
+                </ul>
+            </div>
+            <!-- Add more team members -->
+            <div class="team-member">
+                <img src="https://cdn.discordapp.com/avatars/267376082578046976/c0233dfcbe554bffc87d64ab9dbc499d.png?size=1024" alt="Alex Jordan">
+                <h4>Alex Jordan</h4>
+                <ul>
+                    <li>Lives in dark mode, proudly.</li>
+                    <li>Tabs aren’t up for debate.</li>
+                    <li>Accidentally productive, occasionally on purpose.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>The 404 Company</h4>
+                <p>Turning errors into innovations</p>
+                <div class="social-links">
+                    <a href="https://discord.gg/KxUfgTszjN" target="_blank"><i class="fab fa-discord"></i></a>
+                    <a href="https://github.com/The404Company" target="_blank"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="mailto:schrotti12345@proton.me?subject=Hello%20The%20404%20Company&body=I%20just%20wanted%20to%20ask...">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <ul class="footer-links">
+                    <li><i class="fas fa-envelope"></i> schrotti12345@proton.me</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Swizerland</li>
+                    <li><i class="fas fa-clock"></i> 24/7 Development</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>© 2025 The 404 Company. All rights reserved.</p>
+            <p>Made with <i class="fas fa-heart" style="color: var(--accent-green);"></i> by The 404 Company</p>
+        </div>
+    </footer>
+
+    <script>
+        // New animation without loader
+        window.addEventListener('load', () => {
+            document.querySelector('.hero').style.opacity = '1';
+            
+            setTimeout(() => {
+                document.querySelector('.the').style.opacity = '1';
+                document.querySelector('.company').style.opacity = '1';
+            }, 1000); // Changed to 1000ms (1 second)
+        });
+
+        // Add smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if(href === '#') return; // Skip empty links
+                
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if(target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
