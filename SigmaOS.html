@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SigmaOS - The Fake OS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="SigmaOS_logo.png">
+    <style>
+        :root {
+            --accent-cyan: #00ffff;
+            --dark-bg: #0a0a0a;
+            --header-footer-bg: #151515;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        header {
+            background: var(--header-footer-bg);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 1.5rem 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: flex-end;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent-cyan);
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin-bottom: 2rem;
+        }
+
+        .download-btn {
+            padding: 1rem 2rem;
+            background: var(--accent-cyan);
+            color: var(--dark-bg);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .features {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features h2 {
+            color: var(--accent-cyan);
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            text-align: center;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--header-footer-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card h3 {
+            color: var(--accent-cyan);
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            padding: 4rem 2rem;
+            background: var(--header-footer-bg);
+            margin-top: 4rem;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: #ffffff;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-cyan);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            .hero p {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#features">Features</a>
+            <a href="#installation">Installation</a>
+            <a href="SigmaOS-doc.html">Documentation</a>
+            <a href="https://github.com/The404Company/SigmaOS" target="_blank">GitHub</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>SigmaOS</h1>
+        <p>A playful fake operating system written in Python that brings fun to terminal interaction</p>
+        <a href="https://github.com/The404Company/SigmaOS/releases" class="download-btn" target="_blank">
+            <i class="fas fa-download"></i> Download Latest Release
+        </a>
+    </section>
+
+    <section class="features" id="features">
+        <h2>Features</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3><i class="fas fa-terminal"></i> Command Line Interface</h3>
+                <p>Experience a familiar terminal environment with custom commands and interactions.</p>
+            </div>
+            <div class="feature-card">
+                <h3><i class="fas fa-box-open"></i> Package System</h3>
+                <p>Install and manage packages through our custom package manager.</p>
+            </div>
+            <div class="feature-card">
+                <h3><i class="fas fa-code"></i> Python-Powered</h3>
+                <p>Built entirely in Python, making it easy to understand and modify.</p>
+            </div>
+            <div class="feature-card">
+                <h3><i class="fas fa-puzzle-piece"></i> Extensible</h3>
+                <p>Create your own packages and extend functionality with custom modules.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="social-links">
+            <a href="https://github.com/The404Company/SigmaOS" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://discord.gg/KxUfgTszjN" target="_blank"><i class="fab fa-discord"></i></a>
+        </div>
+        <p>Created by <a href="index.html" style="color: #20C20E;">The 404 Company</a></p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SigmaOS Documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="SigmaOS_logo.png">
+    <style>
+        :root {
+            --accent-cyan: #00ffff;
+            --dark-bg: #0a0a0a;
+            --header-footer-bg: #151515;
+            --sidebar-width: 250px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--header-footer-bg);
+            padding: 2rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .sidebar h3 {
+            color: var(--accent-cyan);
+            margin-bottom: 1rem;
+        }
+
+        .nav-items {
+            list-style: none;
+        }
+
+        .nav-items li {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-items a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: block;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+
+        .nav-items a:hover {
+            color: var(--accent-cyan);
+            background: rgba(0,255,255,0.1);
+        }
+
+        /* Main Content Styles */
+        .content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 4rem;  /* Changed from 2rem to 4rem */
+            max-width: 900px;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section h2 {
+            color: var(--accent-cyan);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(0,255,255,0.2);
+        }
+
+        .section h3 {
+            color: var(--accent-cyan);
+            margin: 1.5rem 0 1rem;
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+        }
+
+        code {
+            background: var(--header-footer-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+        }
+
+        pre {
+            background: var(--header-footer-bg);
+            padding: 1rem;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 0.5rem;
+            background: var(--dark-bg);
+            border: 1px solid rgba(0,255,255,0.2);
+            color: #ffffff;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .layout {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+
+            .content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <nav class="sidebar">
+            <h3>Documentation</h3>
+            <input type="text" class="search-box" placeholder="Search docs..." id="searchDocs">
+            <ul class="nav-items" id="navItems">
+                <!-- Navigation items will be loaded dynamically -->
+            </ul>
+        </nav>
+
+        <main class="content" id="mainContent">
+            <!-- Content will be loaded dynamically -->
+        </main>
+    </div>
+
+    <script>
+        // Load and render documentation content
+        async function loadDocs() {
+            try {
+                const response = await fetch('SigmaOS-doc-content.json');
+                const data = await response.json();
+                
+                // Build navigation
+                const navItems = document.getElementById('navItems');
+                const sections = Object.keys(data);
+                
+                sections.forEach(section => {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.href = `#${section.toLowerCase().replace(/\s+/g, '-')}`;
+                    a.textContent = section;
+                    a.onclick = (e) => {
+                        e.preventDefault();
+                        renderSection(section, data[section]);
+                    };
+                    li.appendChild(a);
+                    navItems.appendChild(li);
+                });
+
+                // Load first section by default
+                if (sections.length > 0) {
+                    renderSection(sections[0], data[sections[0]]);
+                }
+
+                // Setup search
+                document.getElementById('searchDocs').addEventListener('input', (e) => {
+                    const searchTerm = e.target.value.toLowerCase();
+                    document.querySelectorAll('.nav-items a').forEach(item => {
+                        const matches = item.textContent.toLowerCase().includes(searchTerm);
+                        item.parentElement.style.display = matches ? 'block' : 'none';
+                    });
+                });
+
+            } catch (error) {
+                console.error('Error loading documentation:', error);
+                document.getElementById('mainContent').innerHTML = '<p>Error loading documentation. Please try again later.</p>';
+            }
+        }
+
+        function renderSection(title, content) {
+            const mainContent = document.getElementById('mainContent');
+            mainContent.innerHTML = `
+                <div class="section">
+                    <h2>${title}</h2>
+                    ${content}
+                </div>
+            `;
+        }
+
+        // Load documentation when page loads
+        window.addEventListener('load', loadDocs);
+    </script>
+</body>
+</html>
