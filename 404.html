@@ -1,3 +1,123 @@
-<h1>Error: 404 - Page not found.</h1>
-<br>
-<a href="index.html">Back to homepage</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="T404C_logo.png">
+    <style>
+        :root {
+            --accent-green: #20C20E;
+            --dark-bg: #0a0a0a;
+            --header-footer-bg: #151515;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: var(--header-footer-bg);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 1.5rem 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: flex-end;
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            opacity: 0;
+            transition: opacity 0.8s;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .hero .error, .hero .message {
+            opacity: 0;
+            transition: opacity 0.8s;
+        }
+
+        .four-oh-four {
+            color: var(--accent-green);
+            font-weight: 800;
+            margin: 0 1rem;
+        }
+
+        .back-button {
+            padding: 1rem 2rem;
+            background: var(--accent-green);
+            color: var(--dark-bg);
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: transform 0.3s;
+            opacity: 0;
+            transition: opacity 0.8s, transform 0.3s;
+        }
+
+        .back-button:hover {
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <h1>
+            <span class="error">Error:</span> 
+            <span class="four-oh-four">404</span> 
+            <span class="message">Page not found</span>
+        </h1>
+        <a href="index.html" class="back-button">Back to homepage</a>
+    </section>
+
+    <script>
+        window.addEventListener('load', () => {
+            document.querySelector('.hero').style.opacity = '1';
+            
+            setTimeout(() => {
+                document.querySelector('.error').style.opacity = '1';
+                document.querySelector('.message').style.opacity = '1';
+                
+                setTimeout(() => {
+                    document.querySelector('.back-button').style.opacity = '1';
+                }, 1000);
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
