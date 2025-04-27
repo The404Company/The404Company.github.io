@@ -97,6 +97,60 @@
             margin-bottom: 1rem;
         }
 
+        .content a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .content a:hover {
+            background: rgba(0,255,255,0.1);
+        }
+
+        .content ul {
+            list-style: none;
+            margin-left: 1rem;
+        }
+
+        .content ul li {
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .content ul li::before {
+            content: "•";
+            color: var(--accent-cyan);
+            font-weight: bold;
+            position: absolute;
+            left: -1rem;
+        }
+
+        .content ul ul {
+            margin-top: 0.5rem;
+        }
+
+        .content ol {
+            list-style: none;
+            margin-left: 1rem;
+            counter-reset: item;
+        }
+
+        .content ol li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            counter-increment: item;
+        }
+
+        .content ol li::before {
+            content: counter(item) ".";
+            color: var(--accent-cyan);
+            font-weight: bold;
+            position: absolute;
+            left: -1.5rem;
+        }
+
         code {
             background: var(--header-footer-bg);
             padding: 0.2rem 0.4rem;
