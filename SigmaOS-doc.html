@@ -58,13 +58,13 @@
         .nav-items a {
             color: #ffffff;
             text-decoration: none;
-            transition: color 0.3s;
+            transition: all 0.3s;
             display: block;
             padding: 0.5rem;
             border-radius: 4px;
         }
 
-        .nav-items a:hover {
+        .nav-items a.active {
             color: var(--accent-cyan);
             background: rgba(0,255,255,0.1);
         }
@@ -73,12 +73,27 @@
         .content {
             flex: 1;
             margin-left: var(--sidebar-width);
-            padding: 4rem;  /* Changed from 2rem to 4rem */
+            padding: 4rem;
             max-width: 900px;
+            position: relative;
+            min-height: 100vh;
         }
 
         .section {
             margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            position: absolute;
+            width: 100%;
+            visibility: hidden;
+        }
+
+        .section.active {
+            opacity: 1;
+            transform: translateY(0);
+            visibility: visible;
+            position: relative;
         }
 
         .section h2 {
@@ -199,71 +214,342 @@
             <h3>Documentation</h3>
             <input type="text" class="search-box" placeholder="Search docs..." id="searchDocs">
             <ul class="nav-items" id="navItems">
-                <!-- Navigation items will be loaded dynamically -->
+                <li><a href="#getting-started">Getting Started</a></li>
+                <li><a href="#basic-commands">Basic Commands</a></li>
+                <li><a href="#package-system">Package System</a></li>
+                <li><a href="#aliases">Aliases</a></li>
+                <li><a href="#community">Community</a></li>
+                <li><a href="#package-development">Package Development</a></li>
+                <li><a href="#themes">Themes</a></li>
             </ul>
         </nav>
 
-        <main class="content" id="mainContent">
-            <!-- Content will be loaded dynamically -->
+        <main class="content">
+            <section id="getting-started" class="section">
+                <h2>Getting Started</h2>
+                <h3>Introduction</h3>
+                <p>SigmaOS is a modular fake operating system written in Python. Installation is simple - just download and run SigmaOS.py!</p>
+                <h3>Installation</h3>
+                <p>To get started:</p>
+                <ol>
+                    <li>Download SigmaOS.py from <a href='https://github.com/The404Company/SigmaOS' target='_blank'>The404Company/SigmaOS</a></li>
+                    <li>Run the file: <pre><code>python SigmaOS.py</code></pre></li>
+                    <li>SigmaOS will automatically install all required dependencies</li>
+                </ol>
+            </section>
+
+            <section id="basic-commands" class="section">
+                <h2>Basic Commands</h2>
+                <h3>System Commands</h3>
+                <ul>
+                    <li><code>help</code> - Show all available commands</li>
+                    <li><code>exit</code> or <code>sigma quit</code> - Exit SigmaOS</li>
+                    <li><code>clear</code> - Clear the screen</li>
+                    <li><code>setup</code> - Install essential packages</li>
+                    <li><code>reset</code> - Reset SigmaOS to default state</li>
+                    <li><code>sysinfo</code> - Show system information</li>
+                    <li><code>now</code> - Show current date and time</li>
+                    <li><code>sendlogs</code> - Send logs to the official Discord-Server</li>
+                    <li><code>timer &lt;number&gt; &lt;s|m|h&gt;</code> - Set timer in seconds, minutes or hours. Commands can be typed during countdown.</li>
+                </ul>
+                <h3>Keyboard Shortcuts</h3>
+                <ul>
+                    <li><code>Tab</code> - Auto-complete commands</li>
+                    <li><code>Up/Down</code> - Navigate command history</li>
+                    <li><code>Left/Right</code> - Move cursor</li>
+                    <li><code>Ctrl+C</code> - Interrupt current operation</li>
+                </ul>
+            </section>
+
+            <section id="package-system" class="section">
+                <h2>Package System</h2>
+                <h3>Package Management</h3>
+                <p>Manage packages using these commands:</p>
+                <ul>
+                    <li><code>ligma list</code> - Show available packages</li>
+                    <li><code>ligma install &lt;pkg&gt;</code> - Install a package</li>
+                    <li><code>ligma uninstall &lt;pkg&gt;</code> - Remove a package</li>
+                    <li><code>&lt;package&gt;</code> - Run an installed package</li>
+                </ul>
+                <h3>Available Packages</h3>
+                <ul>
+                    <li><code>BetaTask</code> - System resource monitor and task manager</li>
+                    <li><code>DoccX</code> - Document viewer for files in documents directory</li>
+                    <li><code>LigmaDev</code> - Developer tools for creating SigmaOS packages</li>
+                    <li><code>LigmaUpdate</code> - Updates installed packages</li>
+                    <li><code>OmegaNet</code> - Network diagnostics and scanning tools</li>
+                    <li><code>RhoSecure</code> - Secure password manager with encryption</li>
+                    <li><code>SigmaUpdate</code> - Updates the SigmaOS system</li>
+                    <li><code>Sourcerer</code> - Install packages from external sources</li>
+                    <li><code>Sucker</code> - Install files from URLs</li>
+                    <li><code>XiAI</code> - AI ChatBot</li>
+                    <li><code>yapper</code> - Text editor for creating and editing files</li>
+                </ul>
+            </section>
+
+            <section id="aliases" class="section">
+                <h2>Aliases</h2>
+                <h3>Alias Management</h3>
+                <p>Create and manage command aliases:</p>
+                <ul>
+                    <li><code>alias list</code> - Show all aliases</li>
+                    <li><code>alias add &lt;name&gt; &lt;cmd&gt;</code> - Create new alias</li>
+                    <li><code>alias remove &lt;name&gt;</code> - Delete alias</li>
+                </ul>
+            </section>
+
+            <section id="community" class="section">
+                <h2>Community</h2>
+                <h3>Join The Community</h3>
+                <p>Get involved with SigmaOS development:</p>
+                <ul>
+                    <li>Join our <a href='https://discord.gg/KxUfgTszjN' target='_blank'>Discord Server</a> to:
+                        <ul>
+                            <li>Report bugs</li>
+                            <li>Submit packages to the official repository</li>
+                            <li>Join the development team</li>
+                            <li>Get help and support</li>
+                        </ul>
+                    </li>
+                </ul>
+            </section>
+
+            <section id="package-development" class="section">
+                <h2>Package Development</h2>
+                <h3>Package Development</h3>
+                <p>Create custom packages for SigmaOS using the LigmaDev toolkit and SigmaOS_core utilities.</p>
+                <h3>Package Structure</h3>
+                <p>Each package must contain:</p>
+                <ul>
+                    <li><code>main.py</code>- Entry point executed by SigmaOS</li>
+                    <li><code>description.txt</code>- Package metadata and requirements</li>
+                </ul>
+                <h3>description.txt Format</h3>
+                <pre><code>[description]
+Brief package description
+
+[author]
+Your name or username
+
+[version]
+1.0
+
+[requirements]
+colorama
+other_dependencies</code></pre>
+                <h3>Using SigmaOS_core</h3>
+                <p>Download the SigmaOS_core file and copy-paste it into your package-folder.</p>
+                <p>Import core utilities in your package:</p>
+                <pre><code>from SigmaOS_core import clear_screen, loading_animation, press_enter_to_continue, log
+from colorama import Fore, Style</code></pre>
+                <h3>Core Functions</h3>
+                <ul>
+                    <li><code>clear_screen()</code> - Clears the terminal screen</li>
+                    <li><code>loading_animation(message, duration=2, task=None)</code> - Shows loading animation with optional task</li>
+                    <li><code>press_enter_to_continue()</code> - Displays continue prompt</li>
+                    <li><code>log(message)</code> - Log important events and errors in a log-file. This data can be sent to the official Discord-Server by the user.</li>
+                </ul>
+                <h3>Best Practices</h3>
+                <ul>
+                    <li>Always include clear_screen() at start</li>
+                    <li>Show package banner/header</li>
+                    <li>Use colorama for consistent styling</li>
+                    <li>Handle keyboard interrupts gracefully</li>
+                    <li>Provide clear user feedback</li>
+                    <li>Place files in documents directory</li>
+                </ul>
+                <h3>Development Process</h3>
+                <p>Use LigmaDev package to:</p>
+                <ul>
+                    <li>Create new package scaffolding</li>
+                    <li>View example package structure</li>
+                    <li>Access technical documentation</li>
+                </ul>
+                <h3>Testing</h3>
+                <ol>
+                    <li>Put your package folder in<code>SigmaOS/packages/</code>directory</li>
+                    <li>Launch SigmaOS and run your package by name</li>
+                    <li>Test all features and error handling</li>
+                </ol>
+                <h3>Distribution</h3>
+                <p>Once your package is ready, submit it to the official repository through our<a href='https://discord.gg/KxUfgTszjN' target='_blank'>Discord Server</a>.</p>
+            </section>
+
+            <section id="themes" class="section">
+                <h2>Themes</h2>
+                <h3>Theme System</h3>
+                <p>SigmaOS features a customizable theme system that allows you to change the colors of various UI elements. The theme configuration is stored in the <code>theme.sct</code> file.</p>
+                
+                <h3>Theme File Structure</h3>
+                <p>The <code>theme.sct</code> file is a JSON file that contains color definitions for different UI elements. Here's an example of the default theme:</p>
+                <pre><code>{
+    "banner_sct": "cyan",
+    "version_sct": "yellow",
+    "success_sct": "green",
+    "error_sct": "red",
+    "warning_sct": "yellow",
+    "info_sct": "cyan",
+    "header_sct": "yellow",
+    "command_sct": "green",
+    "description_sct": "white",
+    "author_sct": "cyan",
+    "loading_sct": "cyan",
+    "prompt_sct": "green",
+    "suggestion_sct": "cyan",
+    "relevance_sct": "blue",
+    "system_info_sct": "yellow",
+    "timer_sct": "green",
+    "alias_sct": "green",
+    "package_sct": "green",
+    "package_version_sct": "cyan",
+    "package_author_sct": "cyan",
+    "package_description_sct": "white",
+    "package_installed_sct": "green",
+    "package_not_installed_sct": "yellow",
+    "package_error_sct": "red",
+    "package_loading_sct": "cyan",
+    "package_skipped_sct": "yellow",
+    "package_cleanup_sct": "green",
+    "package_download_sct": "cyan",
+    "package_install_sct": "cyan",
+    "package_uninstall_sct": "yellow",
+    "package_reset_sct": "red",
+    "package_setup_sct": "cyan",
+    "package_essential_sct": "green"
+}</code></pre>
+
+                <h3>Available Colors</h3>
+                <p>You can use any of the following color values in your theme (all colors from the colorama library):</p>
+                <ul>
+                    <li><code>black</code> - Black text</li>
+                    <li><code>blue</code> - Blue text</li>
+                    <li><code>cyan</code> - Cyan text</li>
+                    <li><code>green</code> - Green text</li>
+                    <li><code>magenta</code> - Magenta text</li>
+                    <li><code>red</code> - Red text</li>
+                    <li><code>white</code> - White text</li>
+                    <li><code>yellow</code> - Yellow text</li>
+                    <li><code>lightblack_ex</code> - Light black text</li>
+                    <li><code>lightblue_ex</code> - Light blue text</li>
+                    <li><code>lightcyan_ex</code> - Light cyan text</li>
+                    <li><code>lightgreen_ex</code> - Light green text</li>
+                    <li><code>lightmagenta_ex</code> - Light magenta text</li>
+                    <li><code>lightred_ex</code> - Light red text</li>
+                    <li><code>lightwhite_ex</code> - Light white text</li>
+                    <li><code>lightyellow_ex</code> - Light yellow text</li>
+                </ul>
+
+                <h3>Customizing Themes</h3>
+                <p>To customize your theme:</p>
+                <ol>
+                    <li>Locate the <code>theme.sct</code> file in your SigmaOS directory</li>
+                    <li>Edit the color values to your preferred colors</li>
+                    <li>Save the file</li>
+                    <li>Restart SigmaOS to apply the changes</li>
+                </ol>
+
+                <h3>Theme Variables</h3>
+                <p>Each theme variable controls a specific aspect of SigmaOS's interface:</p>
+                <ul>
+                    <li><code>banner_sct</code> - Main banner color</li>
+                    <li><code>version_sct</code> - Version number color</li>
+                    <li><code>success_sct</code> - Success message color</li>
+                    <li><code>error_sct</code> - Error message color</li>
+                    <li><code>warning_sct</code> - Warning message color</li>
+                    <li><code>info_sct</code> - Information message color</li>
+                    <li><code>header_sct</code> - Section header color</li>
+                    <li><code>command_sct</code> - Command text color</li>
+                    <li><code>description_sct</code> - Description text color</li>
+                    <li><code>author_sct</code> - Author name color</li>
+                    <li><code>loading_sct</code> - Loading animation color</li>
+                    <li><code>prompt_sct</code> - Command prompt color</li>
+                    <li><code>suggestion_sct</code> - Command suggestion color</li>
+                    <li><code>relevance_sct</code> - Suggestion relevance indicator color</li>
+                    <li><code>system_info_sct</code> - System information color</li>
+                    <li><code>timer_sct</code> - Timer display color</li>
+                    <li><code>alias_sct</code> - Alias command color</li>
+                    <li><code>package_sct</code> - Package name color</li>
+                    <li><code>package_version_sct</code> - Package version color</li>
+                    <li><code>package_author_sct</code> - Package author color</li>
+                    <li><code>package_description_sct</code> - Package description color</li>
+                    <li><code>package_installed_sct</code> - Installed package indicator color</li>
+                    <li><code>package_not_installed_sct</code> - Not installed package indicator color</li>
+                    <li><code>package_error_sct</code> - Package error message color</li>
+                    <li><code>package_loading_sct</code> - Package loading animation color</li>
+                    <li><code>package_skipped_sct</code> - Skipped package indicator color</li>
+                    <li><code>package_cleanup_sct</code> - Cleanup operation color</li>
+                    <li><code>package_download_sct</code> - Package download indicator color</li>
+                    <li><code>package_install_sct</code> - Package installation indicator color</li>
+                    <li><code>package_uninstall_sct</code> - Package uninstallation indicator color</li>
+                    <li><code>package_reset_sct</code> - Reset operation color</li>
+                    <li><code>package_setup_sct</code> - Setup operation color</li>
+                    <li><code>package_essential_sct</code> - Essential package indicator color</li>
+                </ul>
+            </section>
         </main>
     </div>
 
     <script>
-        // Load and render documentation content
-        async function loadDocs() {
-            try {
-                const response = await fetch('SigmaOS-doc-content.json');
-                const data = await response.json();
-                
-                // Build navigation
-                const navItems = document.getElementById('navItems');
-                const sections = Object.keys(data);
-                
+        // Setup section navigation and transitions
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.nav-items a');
+            
+            // Function to show a section and update active nav link
+            function showSection(sectionId) {
+                // Hide all sections
                 sections.forEach(section => {
-                    const li = document.createElement('li');
-                    const a = document.createElement('a');
-                    a.href = `#${section.toLowerCase().replace(/\s+/g, '-')}`;
-                    a.textContent = section;
-                    a.onclick = (e) => {
-                        e.preventDefault();
-                        renderSection(section, data[section]);
-                    };
-                    li.appendChild(a);
-                    navItems.appendChild(li);
+                    section.classList.remove('active');
                 });
-
-                // Load first section by default
-                if (sections.length > 0) {
-                    renderSection(sections[0], data[sections[0]]);
+                
+                // Show selected section
+                const targetSection = document.getElementById(sectionId);
+                if (targetSection) {
+                    // Add a small delay to ensure the previous section is hidden
+                    setTimeout(() => {
+                        targetSection.classList.add('active');
+                    }, 50);
                 }
-
-                // Setup search
-                document.getElementById('searchDocs').addEventListener('input', (e) => {
-                    const searchTerm = e.target.value.toLowerCase();
-                    document.querySelectorAll('.nav-items a').forEach(item => {
-                        const matches = item.textContent.toLowerCase().includes(searchTerm);
-                        item.parentElement.style.display = matches ? 'block' : 'none';
-                    });
+                
+                // Update active nav link
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${sectionId}`) {
+                        link.classList.add('active');
+                    }
                 });
-
-            } catch (error) {
-                console.error('Error loading documentation:', error);
-                document.getElementById('mainContent').innerHTML = '<p>Error loading documentation. Please try again later.</p>';
+                
+                // Update URL hash without scrolling
+                history.pushState(null, '', `#${sectionId}`);
             }
-        }
-
-        function renderSection(title, content) {
-            const mainContent = document.getElementById('mainContent');
-            mainContent.innerHTML = `
-                <div class="section">
-                    <h2>${title}</h2>
-                    ${content}
-                </div>
-            `;
-        }
-
-        // Load documentation when page loads
-        window.addEventListener('load', loadDocs);
+            
+            // Handle nav link clicks
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const sectionId = link.getAttribute('href').substring(1);
+                    showSection(sectionId);
+                });
+            });
+            
+            // Handle initial load and hash changes
+            function handleHashChange() {
+                const hash = window.location.hash.substring(1) || 'getting-started';
+                showSection(hash);
+            }
+            
+            window.addEventListener('hashchange', handleHashChange);
+            handleHashChange();
+            
+            // Setup search functionality
+            document.getElementById('searchDocs').addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                navLinks.forEach(link => {
+                    const matches = link.textContent.toLowerCase().includes(searchTerm);
+                    link.parentElement.style.display = matches ? 'block' : 'none';
+                });
+            });
+        });
     </script>
 </body>
 </html>
