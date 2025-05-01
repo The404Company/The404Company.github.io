@@ -269,7 +269,8 @@
                     <li><code>ligma list</code> - Show available packages</li>
                     <li><code>ligma install &lt;pkg&gt;</code> - Install a package</li>
                     <li><code>ligma uninstall &lt;pkg&gt;</code> - Remove a package</li>
-                    <li><code>&lt;package&gt;</code> - Run an installed package</li>
+                    <li><code>&lt;package&gt;</code> - Run an installed package's main.py</li>
+                    <li><code>&lt;package&gt;.&lt;script&gt;</code> - Run a specific script in a package (e.g., <code>yapper.config</code> runs config.py)</li>
                 </ul>
                 <h3>Available Packages</h3>
                 <ul>
@@ -378,10 +379,17 @@ from colorama import Fore, Style</code></pre>
             <section id="themes" class="section">
                 <h2>Themes</h2>
                 <h3>Theme System</h3>
-                <p>SigmaOS features a customizable theme system that allows you to change the colors of various UI elements. The theme configuration is stored in the <code>theme.sth</code> file.</p>
+                <p>SigmaOS features a customizable theme system that allows you to change the colors of various UI elements. Themes are stored in the <code>themes</code> directory, and the current theme selection is stored in <code>user.sigs</code>.</p>
                 
+                <h3>Theme Management</h3>
+                <p>Manage themes using these commands:</p>
+                <ul>
+                    <li><code>theme list</code> - List all available themes</li>
+                    <li><code>theme set &lt;name&gt;</code> - Set a new theme (requires restart)</li>
+                </ul>
+
                 <h3>Theme File Structure</h3>
-                <p>The <code>theme.sth</code> file is a JSON file that contains color definitions for different UI elements. Here's an example of the default theme:</p>
+                <p>Theme files are stored in the <code>themes</code> directory with the <code>.sth</code> extension. Here's an example of the default theme:</p>
                 <pre><code>{
     "banner_sth": "cyan",
     "version_sth": "yellow",
@@ -442,9 +450,9 @@ from colorama import Fore, Style</code></pre>
                 <h3>Customizing Themes</h3>
                 <p>To customize your theme:</p>
                 <ol>
-                    <li>Locate the <code>theme.sth</code> file in your SigmaOS directory</li>
+                    <li>Create a new <code>.sth</code> file in the <code>themes</code> directory</li>
                     <li>Edit the color values to your preferred colors</li>
-                    <li>Save the file</li>
+                    <li>Use <code>theme set &lt;name&gt;</code> to apply your theme</li>
                     <li>Restart SigmaOS to apply the changes</li>
                 </ol>
 
