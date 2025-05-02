@@ -12,6 +12,7 @@
             --dark-bg: #0a0a0a;
             --header-footer-bg: #151515;
             --sidebar-width: 250px;
+            --link-hover-bg: rgba(0,255,255,0.1);
         }
 
         * {
@@ -66,7 +67,13 @@
 
         .nav-items a.active {
             color: var(--accent-cyan);
-            background: rgba(0,255,255,0.1);
+            background: var(--link-hover-bg);
+        }
+
+        .nav-items a:hover {
+            color: var(--accent-cyan);
+            background: var(--link-hover-bg);
+            transform: translateX(5px);
         }
 
         /* Main Content Styles */
@@ -83,13 +90,14 @@
             margin-bottom: 3rem;
             opacity: 0;
             transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            transition: all 0.5s ease;
             position: absolute;
             width: 100%;
             visibility: hidden;
             background: var(--header-footer-bg);
             padding: 2rem;
             border-radius: 10px;
+            animation: fadeInUp 0.5s ease forwards;
         }
 
         .package-section.active {
@@ -151,11 +159,32 @@
             margin-left: auto;
             color: var(--accent-cyan);
             text-decoration: none;
-            transition: opacity 0.3s;
+            transition: all 0.3s;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            position: relative;
         }
 
         .github-link:hover {
-            opacity: 0.8;
+            background: var(--link-hover-bg);
+            transform: translateY(-2px);
+        }
+
+        .github-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--accent-cyan);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .github-link:hover::after {
+            transform: scaleX(1);
         }
 
         .install-command {
@@ -258,6 +287,13 @@
             color: #ffffff;
             border-radius: 4px;
             margin-bottom: 1rem;
+            transition: all 0.3s;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 10px rgba(0,255,255,0.2);
         }
 
         .loading {
@@ -279,6 +315,17 @@
 
             .content {
                 margin-left: 0;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
     </style>
@@ -314,9 +361,7 @@
                 if (cachedPackages && cacheTimestamp && (now - parseInt(cacheTimestamp)) < 3600000) {
                     const packages = JSON.parse(cachedPackages);
                     updatePackageList(packages);
-                    if (packages.length > 0) {
-                        loadPackage(packages[0].name);
-                    }
+                    handleHashChange(packages);
                     return;
                 }
 
@@ -331,11 +376,7 @@
                 localStorage.setItem('sigmaos_packages_timestamp', now.toString());
                 
                 updatePackageList(packages);
-                
-                // Load first package by default
-                if (packages.length > 0) {
-                    loadPackage(packages[0].name);
-                }
+                handleHashChange(packages);
             } catch (error) {
                 console.error('Error fetching packages:', error);
                 document.getElementById('packageList').innerHTML = '<li>Error loading packages</li>';
@@ -447,6 +488,9 @@
                     link.classList.add('active');
                 }
             });
+
+            // Update URL hash without scrolling
+            history.pushState(null, '', `#${packageName}`);
         }
         
         // Setup search functionality
@@ -492,8 +536,27 @@
             });
         }
         
+        // Handle initial load and hash changes
+        function handleHashChange(packages) {
+            const hash = window.location.hash.substring(1);
+            if (hash && packages.some(pkg => pkg.name === hash)) {
+                loadPackage(hash);
+            } else if (packages.length > 0) {
+                // Load first package by default if no hash or invalid hash
+                loadPackage(packages[0].name);
+            }
+        }
+
         // Initial load
         fetchPackages();
+
+        // Handle hash changes after initial load
+        window.addEventListener('hashchange', () => {
+            const hash = window.location.hash.substring(1);
+            if (hash) {
+                loadPackage(hash);
+            }
+        });
     </script>
 </body>
 </html> 
