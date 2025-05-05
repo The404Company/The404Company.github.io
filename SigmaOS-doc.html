@@ -224,6 +224,108 @@
             box-shadow: 0 0 10px rgba(0,255,255,0.2);
         }
 
+        .install-command {
+            background: var(--dark-bg);
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .install-command:hover {
+            border-color: rgba(0, 255, 255, 0.3);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+        }
+
+        .install-command code {
+            flex: 1;
+            font-family: 'Consolas', monospace;
+            color: var(--accent-cyan);
+            white-space: pre;
+            overflow-x: auto;
+            padding: 0;
+            background: transparent;
+        }
+
+        .copy-button {
+            background: var(--accent-cyan);
+            color: var(--dark-bg);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .copy-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 255, 255, 0.3);
+        }
+
+        .copy-button.copied {
+            background: #4CAF50;
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+        }
+
+        .copy-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s ease, height 0.3s ease;
+        }
+
+        .copy-button:active::after {
+            width: 200px;
+            height: 200px;
+        }
+
+        .copy-button i {
+            transition: transform 0.3s ease;
+        }
+
+        .copy-button.copied i {
+            transform: scale(1.2);
+        }
+
+        @keyframes checkmark {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .copy-button.copied i.fa-check {
+            animation: checkmark 0.5s ease;
+        }
+
         @media (max-width: 768px) {
             .layout {
                 flex-direction: column;
@@ -266,7 +368,13 @@
                 <p>To get started:</p>
                 <ol>
                     <li>Download SigmaOS.py from <a href='https://github.com/The404Company/SigmaOS' target='_blank'>The404Company/SigmaOS</a></li>
-                    <li>Run the file: <pre><code>python SigmaOS.py</code></pre></li>
+                    <li>Run the file:</li>
+                    <div class="install-command">
+                        <code>python SigmaOS.py</code>
+                        <button class="copy-button" onclick="copyToClipboard(event, 'suck(url, save_to_documents=False, filename=None, hidden=False)')">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                    </div>
                     <li>SigmaOS will automatically install all required dependencies</li>
                 </ol>
             </section>
@@ -359,7 +467,8 @@
                     <li><code>description.txt</code>- Package metadata and requirements</li>
                 </ul>
                 <h3>description.txt Format</h3>
-                <pre><code>[description]
+                <div class="install-command">
+                    <code>[description]
 Brief package description
 
 [author]
@@ -370,19 +479,71 @@ Your name or username
 
 [requirements]
 colorama
-other_dependencies</code></pre>
-                <h3>Using SigmaOS_core</h3>
+requests
+other_dependencies</code>
+                    <button class="copy-button" onclick="copyToClipboard(event, '[description]\nBrief package description\n\n[author]\nYour name or username\n\n[version]\n1.0\n\n[requirements]\ncolorama\nrequests\nother_dependencies')">
+                        <i class="fas fa-copy"></i> Copy
+                    </button>
+                </div>
+                <code>requests</code> is required for the <code>suck()</code> function in SigmaOS_core
+                <br>
+                <br>
+
+                <h2>Using SigmaOS_core</h2>
                 <p>Download the SigmaOS_core file and copy-paste it into your package-folder.</p>
                 <p>Import core utilities in your package:</p>
-                <pre><code>from SigmaOS_core import clear_screen, loading_animation, press_enter_to_continue, log
-from colorama import Fore, Style</code></pre>
+                <div class="install-command">
+                    <code>from SigmaOS_core import clear_screen, loading_animation, press_enter_to_continue, log, suck
+from colorama import Fore, Style</code>
+                    <button class="copy-button" onclick="copyToClipboard(event, 'from SigmaOS_core import clear_screen, loading_animation, press_enter_to_continue, log, suck\nfrom colorama import Fore, Style')">
+                        <i class="fas fa-copy"></i> Copy
+                    </button>
+                </div>
                 <h3>Core Functions</h3>
                 <ul>
                     <li><code>clear_screen()</code> - Clears the terminal screen</li>
                     <li><code>loading_animation(message, duration=2, task=None)</code> - Shows loading animation with optional task</li>
                     <li><code>press_enter_to_continue()</code> - Displays continue prompt</li>
                     <li><code>log(message)</code> - Log important events and errors in a log-file. This data can be sent to the official Discord-Server by the user.</li>
+                    <li><code>suck(url, save_to_documents=False, filename=None, hidden=False)</code> - Download files from the internet with "flexible" save options.</li>
                 </ul>
+
+                <h3>File Download Function</h3>
+                <p>The <code>suck()</code> function provides an easy way to download files from the internet with progress indication and flexible save options:</p>
+                <div class="install-command">
+                    <code>suck(url, save_to_documents=False, filename=None, hidden=False)</code>
+                    <button class="copy-button" onclick="copyToClipboard(event, 'suck(url, save_to_documents=False, filename=None, hidden=False)')">
+                        <i class="fas fa-copy"></i> Copy
+                    </button>
+                </div>
+                <p>Parameters:</p>
+                <ul>
+                    <li><code>url</code> - The URL of the file to download</li>
+                    <li><code>save_to_documents</code> - If True, saves the file to the ../../documents directory</li>
+                    <li><code>filename</code> - Optional custom filename. If not provided, uses the filename from the URL</li>
+                    <li><code>hidden</code> - If True, suppresses all output messages and progress indicators</li>
+                </ul>
+                <p>Returns:</p>
+                <ul>
+                    <li>Path to the downloaded file on success</li>
+                    <li>None if the download failed</li>
+                </ul>
+                <p>Example usage:</p>
+                <div class="install-command">
+                    <code># Download to current directory
+suck("https://example.com/file.zip")
+
+# Download to documents folder with custom name
+suck("https://example.com/file.zip", save_to_documents=True, filename="my_file.zip")
+
+# Silent download (no output)
+suck("https://example.com/file.zip", hidden=True)</code>
+                    <button class="copy-button" onclick="copyToClipboard(event, '# Download to current directory\nsuck(\'https://example.com/file.zip\')\n\n# Download to documents folder with custom name\nsuck(\'https://example.com/file.zip\', save_to_documents=True, filename=\'my_file.zip\')\n\n# Silent download (no output)\nsuck(\'https://example.com/file.zip\', hidden=True)')">
+                        <i class="fas fa-copy"></i> Copy
+                    </button>
+                </div>
+
+                <br>
                 <h3>Best Practices</h3>
                 <ul>
                     <li>Always include clear_screen() at start</li>
@@ -419,11 +580,16 @@ from colorama import Fore, Style</code></pre>
                 <ul>
                     <li><code>theme list</code> - List all available themes</li>
                     <li><code>theme set &lt;name&gt;</code> - Set a new theme (requires restart)</li>
+                    <li><code>theme edit &lt;name&gt; [value]</code> - Edit theme colors (all or specific value)</li>
+                    <li><code>theme create &lt;name&gt;</code> - Create a new theme</li>
+                    <li><code>theme delete &lt;name&gt;</code> - Delete a theme</li>
+                    <li><code>theme show &lt;name&gt;</code> - Show theme contents</li>
                 </ul>
 
                 <h3>Theme File Structure</h3>
                 <p>Theme files are stored in the <code>themes</code> directory with the <code>.sth</code> extension. Here's an example of the default theme:</p>
-                <pre><code>{
+                <div class="install-command">
+                    <code>{
     "banner_sth": "cyan",
     "version_sth": "yellow",
     "success_sth": "green",
@@ -457,7 +623,11 @@ from colorama import Fore, Style</code></pre>
     "package_reset_sth": "red",
     "package_setup_sth": "cyan",
     "package_essential_sth": "green"
-}</code></pre>
+}</code>
+                    <button class="copy-button" onclick="copyToClipboard(event, themeJson())">
+                        <i class="fas fa-copy"></i> Copy
+                    </button>
+                </div>
 
                 <h3>Available Colors</h3>
                 <p>You can use any of the following color values in your theme (all colors from the colorama library):</p>
@@ -492,39 +662,25 @@ from colorama import Fore, Style</code></pre>
                 <h3>Theme Variables</h3>
                 <p>Each theme variable controls a specific aspect of SigmaOS's interface:</p>
                 <ul>
-                    <li><code>banner_sth</code> - Main banner color</li>
-                    <li><code>version_sth</code> - Version number color</li>
-                    <li><code>success_sth</code> - Success message color</li>
-                    <li><code>error_sth</code> - Error message color</li>
-                    <li><code>warning_sth</code> - Warning message color</li>
-                    <li><code>info_sth</code> - Information message color</li>
-                    <li><code>header_sth</code> - Section header color</li>
-                    <li><code>command_sth</code> - Command text color</li>
-                    <li><code>description_sth</code> - Description text color</li>
-                    <li><code>author_sth</code> - Author name color</li>
-                    <li><code>loading_sth</code> - Loading animation color</li>
-                    <li><code>prompt_sth</code> - Command prompt color</li>
-                    <li><code>suggestion_sth</code> - Command suggestion color</li>
-                    <li><code>relevance_sth</code> - Suggestion relevance indicator color</li>
-                    <li><code>system_info_sth</code> - System information color</li>
-                    <li><code>timer_sth</code> - Timer display color</li>
-                    <li><code>alias_sth</code> - Alias command color</li>
-                    <li><code>package_sth</code> - Package name color</li>
-                    <li><code>package_version_sth</code> - Package version color</li>
-                    <li><code>package_author_sth</code> - Package author color</li>
-                    <li><code>package_description_sth</code> - Package description color</li>
-                    <li><code>package_installed_sth</code> - Installed package indicator color</li>
-                    <li><code>package_not_installed_sth</code> - Not installed package indicator color</li>
-                    <li><code>package_error_sth</code> - Package error message color</li>
-                    <li><code>package_loading_sth</code> - Package loading animation color</li>
-                    <li><code>package_skipped_sth</code> - Skipped package indicator color</li>
-                    <li><code>package_cleanup_sth</code> - Cleanup operation color</li>
-                    <li><code>package_download_sth</code> - Package download indicator color</li>
-                    <li><code>package_install_sth</code> - Package installation indicator color</li>
-                    <li><code>package_uninstall_sth</code> - Package uninstallation indicator color</li>
-                    <li><code>package_reset_sth</code> - Reset operation color</li>
-                    <li><code>package_setup_sth</code> - Setup operation color</li>
-                    <li><code>package_essential_sth</code> - Essential package indicator color</li>
+                    <li><code>banner_sth</code> - Banner box and lines</li>
+                    <li><code>command_sth</code> - Commands, sigma symbol, and SigmaOS text</li>
+                    <li><code>version_sth</code> - Version number</li>
+                    <li><code>description_sth</code> - General text and descriptions</li>
+                    <li><code>success_sth</code> - Success messages</li>
+                    <li><code>error_sth</code> - Error messages</li>
+                    <li><code>warning_sth</code> - Warning messages</li>
+                    <li><code>info_sth</code> - Information messages</li>
+                    <li><code>header_sth</code> - Section headers</li>
+                    <li><code>prompt_sth</code> - Command prompt</li>
+                    <li><code>loading_sth</code> - Loading animations</li>
+                    <li><code>timer_sth</code> - Timer display</li>
+                    <li><code>suggestion_sth</code> - Command suggestions</li>
+                    <li><code>relevance_sth</code> - Suggestion relevance</li>
+                    <li><code>alias_sth</code> - Alias commands</li>
+                    <li><code>system_info_sth</code> - System information</li>
+                    <li><code>package_sth</code> - Package names</li>
+                    <li><code>package_status_sth</code> - Package status (installed, version, etc.)</li>
+                    <li><code>package_error_sth</code> - Package errors</li>
                 </ul>
             </section>
         </main>
@@ -591,6 +747,79 @@ from colorama import Fore, Style</code></pre>
                 });
             });
         });
+
+        // Function to return theme JSON for copy button
+        function themeJson() {
+            return JSON.stringify({
+                "banner_sth": "cyan",
+                "version_sth": "yellow",
+                "success_sth": "green",
+                "error_sth": "red",
+                "warning_sth": "yellow",
+                "info_sth": "cyan",
+                "header_sth": "yellow",
+                "command_sth": "green",
+                "description_sth": "white",
+                "author_sth": "cyan",
+                "loading_sth": "cyan",
+                "prompt_sth": "green",
+                "suggestion_sth": "cyan",
+                "relevance_sth": "blue",
+                "system_info_sth": "yellow",
+                "timer_sth": "green",
+                "alias_sth": "green",
+                "package_sth": "green",
+                "package_version_sth": "cyan",
+                "package_author_sth": "cyan",
+                "package_description_sth": "white",
+                "package_installed_sth": "green",
+                "package_not_installed_sth": "yellow",
+                "package_error_sth": "red",
+                "package_loading_sth": "cyan",
+                "package_skipped_sth": "yellow",
+                "package_cleanup_sth": "green",
+                "package_download_sth": "cyan",
+                "package_install_sth": "cyan",
+                "package_uninstall_sth": "yellow",
+                "package_reset_sth": "red",
+                "package_setup_sth": "cyan",
+                "package_essential_sth": "green"
+            }, null, 4);
+        }
+
+        // Add copy to clipboard functionality
+        function copyToClipboard(event, text) {
+            if (!event || !event.currentTarget) return;
+            
+            const button = event.currentTarget;
+            const originalContent = button.innerHTML;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                // First show just the checkmark
+                button.innerHTML = '<i class="fas fa-check"></i>';
+                button.classList.add('copied');
+                
+                // After 0.5 seconds, show "Copied!" text
+                setTimeout(() => {
+                    if (button) {
+                        button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    }
+                }, 500);
+                
+                // Reset after animation
+                setTimeout(() => {
+                    if (button) {
+                        button.classList.remove('copied');
+                        button.innerHTML = originalContent;
+                    }
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy text:', err);
+                if (button) {
+                    button.innerHTML = originalContent;
+                }
+            });
+        }
     </script>
 </body>
 </html>
